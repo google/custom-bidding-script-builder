@@ -1,0 +1,10 @@
+{
+  "timeZone": "Europe/Vienna",
+  "exceptionLogging": "STACKDRIVER",
+  "oauthScopes": [
+    "https://www.googleapis.com/auth/spreadsheets.currentonly",
+    "https://www.googleapis.com/auth/userinfo.email"
+  ],
+  "runtimeVersion": "V8"
+}
+
