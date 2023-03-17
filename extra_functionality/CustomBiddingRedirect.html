@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <base target="_blank">
+  <script>
+    const redirectURL = 'https://displayvideo.google.com/ng_nav/p/' +<?!= partner_id ?> +'/a/' +<?!= advertiser_id ?> +'/custom-bidding';
+    const winRef = window.open redirectURL);
+    winRef ? google.script.host.close() : window.alert('Allow popup to redirect you to ' + redirectURL);
+    window.onload = function () { document.getElementById('redirectURL').href = redirectURL; }
+  </script>
+</head>
+
+<body>
+  Please allow this window to create pop ups</br>
+  Or <a id='redirectURL'>Click Here </a>to continue
+</body>
+
+</html>
