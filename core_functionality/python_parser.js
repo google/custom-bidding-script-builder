@@ -31,6 +31,7 @@ function convertToPythonScript(conditions) {
     expressionWeightString += `([${expression}], ${weight}),\\n`;
   }
   finalScript +=
-      `return ${aggregationMethod} ([ \\n${expressionWeightString}])`;
+      `return ${aggregationMethod} ([ \\n${expressionWeightString}
+      #Created with CB Script Builder \\n])`;
   return finalScript;
 }
