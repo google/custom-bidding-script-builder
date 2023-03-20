@@ -29,10 +29,10 @@ function printJSON() {
     };
     SpreadsheetApp.getUi().alert(
         JSON.stringify(finalJSON, null, '\u{2000}'.repeat(2)));
-    logFunctionRun('Print Code');
+    logFunctionRun('Print JSON');
   } catch (err) {
     Browser.msgBox('There was an error: \\n \\n' + err);
-    logFunctionRun('Print Code', err);
+    logFunctionRun('Print JSON', err);
   }
 }
 
@@ -49,10 +49,10 @@ function printScript() {
       return
     };
     let pythonScript = convertToPythonScript(conditions);
-    logFunctionRun('Create Script');
+    logFunctionRun('Print Script');
     Browser.msgBox(pythonScript);
   } catch (err) {
-    logFunctionRun('Create Script', err);
+    logFunctionRun('Print Script', err);
     Browser.msgBox('There was an error: \\n \\n' + err);
   }
 }

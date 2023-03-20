@@ -25,6 +25,7 @@ function logFunctionRun(functionName, error) {
   let ss = SpreadsheetApp.getActiveSpreadsheet();
   let sheet = ss.getSheetByName('Error Tracking');
   let ss_id = SpreadsheetApp.getActiveSpreadsheet().getId();
+  let partner_id = PARTNER_ID;
   let adv_id = ADVERTISER_ID;
   let user = Session.getActiveUser().getEmail();
   let status = '';
@@ -37,5 +38,5 @@ function logFunctionRun(functionName, error) {
   };
   ss.setSpreadsheetTimeZone(Session.getScriptTimeZone());
   let ts = new Date();
-  sheet.appendRow([ts, ss_id, adv_id, user, functionName, status, error]);
+  sheet.appendRow([ts, ss_id, partner_id, adv_id, user, functionName, status, error]);
 }
