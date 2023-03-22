@@ -18,10 +18,10 @@
  * Writes data to the tracking sheet based on what function was run and whether
  * or not it triggered an error
  * @param {string} functionName The name of the function being executed
- * @param {string=} error The error message
+ * @param {Object=} err The error object
  */
 
-function logFunctionRun(functionName, error) {
+function logFunctionRun(functionName, err) {
   let ss = SpreadsheetApp.getActiveSpreadsheet();
   let sheet = ss.getSheetByName('Error Tracking');
   let ss_id = SpreadsheetApp.getActiveSpreadsheet().getId();
@@ -29,14 +29,15 @@ function logFunctionRun(functionName, error) {
   let adv_id = ADVERTISER_ID;
   let user = Session.getActiveUser().getEmail();
   let status = '';
-  if (error == undefined) {
+  if (err == undefined) {
     error = '';
-    status = 'SUCCESS';
+    status = 'Success';
   } else {
-    error = error;
-    status = 'ERROR';
+    error = err.message;
+    status = err.name;
   };
   ss.setSpreadsheetTimeZone(Session.getScriptTimeZone());
   let ts = new Date();
-  sheet.appendRow([ts, ss_id, partner_id, adv_id, user, functionName, status, error]);
+  sheet.appendRow(
+      [ts, ss_id, partner_id, adv_id, user, functionName, status, error]);
 }

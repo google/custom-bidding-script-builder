@@ -95,7 +95,7 @@ function sendFeedback() {
     }
     logFunctionRun('Send Feedback');
   } catch (err) {
-    Browser.msgBox('There was an error: \\n \\n' + err);
+    Browser.msgBox('ERROR', err.message, Browser.Buttons.OK);
     logFunctionRun('Send Feedback', err);
   }
 }
@@ -110,7 +110,7 @@ function openAdvDV360() {
     openDV360('Advertiser');
     logFunctionRun('Open DV360 Adv');
   } catch (err) {
-    Browser.msgBox('There was an error: \\n \\n' + err);
+    Browser.msgBox('ERROR', err.message, Browser.Buttons.OK);
     logFunctionRun('Open DV360 Adv', err);
   }
 }
@@ -125,7 +125,7 @@ function openPartnerDV360() {
     openDV360('Partner');
     logFunctionRun('Open DV360 Partner');
   } catch (err) {
-    Browser.msgBox('There was an error: \\n \\n' + err);
+    Browser.msgBox('ERROR', err.message, Browser.Buttons.OK);
     logFunctionRun('Open DV360 Partner', err);
   }
 }
@@ -152,7 +152,7 @@ function openDV360(hierarchyLevel) {
         HtmlService.createHtmlOutput(htmlOutput).setHeight(50),
         'Opening DV360');
   } catch (err) {
-    Browser.msgBox('There was an error: \\n \\n' + err);
+    Browser.msgBox('ERROR', err.message, Browser.Buttons.OK);
     logFunctionRun('Open DV360', err);
   }
 }

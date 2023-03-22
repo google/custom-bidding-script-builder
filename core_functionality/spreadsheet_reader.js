@@ -40,6 +40,16 @@ const ADVERTISER_ID =
 const AGGREGATION_METHOD =
     sheet.getRange(aggregationModelRow, globalInputsColumn).getDisplayValue();
 
+/**
+ * Creates error object for user input errors
+ * @param {string} message The error message to display to the user
+ */
+function UserInputError(message) {
+  this.message = message;
+  this.name = 'UserInputError';
+}
+
+UserInputError.prototype = Error.prototype;
 
 /**
  * A dictionary object to store the conditions and weights
@@ -63,11 +73,18 @@ function getConditions() {
   let weight =
       sheet.getRange(firstConditionRow, weightingColumn).getDisplayValue();
   if (weight == '') {
-    return []
+    throw new UserInputError(
+        'There are not enough inputs to make a valid script');
   };
   let conditions = [];
   while (weight != '') {
-    expression = constructExpression(conditionRow);
+    let expression = constructExpression(conditionRow);
+    if (expression == '') {
+      Browser.msgBox(
+          'WARNING',
+          'One of your weights has been assigned to an empty condition. This will assign that weight to any impression where the other conditions are not met. \\n \\n  Please carefully check your code to ensure this is intended behavior.',
+          Browser.Buttons.OK);
+    }
     dict = {};
     dict[expression] = weight;
     conditions.push(dict);
@@ -101,11 +118,10 @@ function constructExpression(rowNumber) {
     /** Adds a clause to the expression */
     clause = constructClause(variable, operator, value);
     if (clause == '') {
-      Browser.msgBox(
-          `One of your clauses was missing an input and therefore invalid. 
+      throw new UserInputError(
+          `One of your clauses is missing an input and therefore invalid.
           Please check row number ${
               rowNumber} and correct the error before retrying.`);
-      return;
     }
     expression += clause;
     /**Moves to the next possible instance of a clause and redefines "variable"
@@ -116,6 +132,12 @@ function constructExpression(rowNumber) {
     if (variable != '') {
       let connector =
           sheet.getRange(rowNumber, conditionColumn - 2).getDisplayValue();
+      if (connector == '') {
+        throw new UserInputError(
+            `Check your inputs: One of your conditions is missing a logical connector and therefore invalid.
+          Please check row number ${
+                rowNumber} and correct the error before retrying.`);
+      }
       connector = connector.toLowerCase();
       expression += (' ' + connector + ' ');
     }

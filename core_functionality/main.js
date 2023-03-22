@@ -28,10 +28,10 @@ function printJSON() {
       'ExpressionWeightPairs': getConditions()
     };
     SpreadsheetApp.getUi().alert(
-        JSON.stringify(finalJSON, null, '\u{2000}'.repeat(2)));
+      JSON.stringify(finalJSON, null, '\u{2000}'.repeat(2)));
     logFunctionRun('Print JSON');
   } catch (err) {
-    Browser.msgBox('There was an error: \\n \\n' + err);
+    Browser.msgBox('ERROR', err.message, Browser.Buttons.OK);
     logFunctionRun('Print JSON', err);
   }
 }
@@ -44,15 +44,11 @@ function printJSON() {
 function printScript() {
   try {
     let conditions = getConditions();
-    if (conditions == []) {
-      Browser.msgBox('There are not enough inputs to make a valid script');
-      return
-    };
     let pythonScript = convertToPythonScript(conditions);
     logFunctionRun('Print Script');
     Browser.msgBox(pythonScript);
   } catch (err) {
     logFunctionRun('Print Script', err);
-    Browser.msgBox('There was an error: \\n \\n' + err);
+    Browser.msgBox('ERROR', err.message, Browser.Buttons.OK);
   }
 }

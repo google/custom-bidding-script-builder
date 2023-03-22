@@ -21,7 +21,7 @@
  * @param {string=} error The error message
  */
 
-function logFunctionRun(functionName, error) {
+function logFunctionRun(functionName, err) {
   let ss = SpreadsheetApp.getActiveSpreadsheet();
   let sheet = ss.getSheetByName('Error Tracking');
   let ss_id = SpreadsheetApp.getActiveSpreadsheet().getId();
@@ -29,12 +29,12 @@ function logFunctionRun(functionName, error) {
   let adv_id = ADVERTISER_ID;
   let user = Session.getActiveUser().getEmail();
   let status = '';
-  if (error == undefined) {
+  if (err == undefined) {
     error = '';
-    status = 'SUCCESS';
+    status = 'Success';
   } else {
-    error = error;
-    status = 'ERROR';
+    error = err.message;
+    status = err.name;
   };
   ss.setSpreadsheetTimeZone(Session.getScriptTimeZone());
   let ts = new Date();
